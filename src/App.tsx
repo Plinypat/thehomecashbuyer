@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion'
+import { Analytics } from '@vercel/analytics/react'
 
 // ─── AVA Logo SVG ─────────────────────────────────────────────────────────────
 // light=true → white strokes (for dark navy backgrounds)
@@ -531,6 +532,7 @@ export default function App() {
       <FinalCTA />
       <Footer />
       <MobileCTA />
+      <Analytics />
     </div>
   )
 }
