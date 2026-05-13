@@ -3,18 +3,62 @@ import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'fra
 
 // ─── AVA Logo SVG ─────────────────────────────────────────────────────────────
 function AvaLogo({ className = '' }: { className?: string }) {
+  // Navy: #1C2B5A  Gold: #B8962E
+  const navy = "#1C2B5A"
+  const gold = "#B8962E"
+  const sw = 8    // stroke width for A legs
+  const vsw = 8   // stroke width for V
   return (
-    <svg viewBox="0 0 220 80" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="AVA Properties Home Buyers">
-      <polygon points="16,58 44,8 60,58" fill="none" stroke="#1C2B5A" strokeWidth="4.5" strokeLinejoin="round"/>
-      <rect x="27" y="42" width="8" height="8" fill="#C9A555"/>
-      <polygon points="44,8 72,58 100,8" fill="none" stroke="#C9A555" strokeWidth="4.5" strokeLinejoin="round"/>
-      <polygon points="84,8 100,58 128,8" fill="none" stroke="#1C2B5A" strokeWidth="4.5" strokeLinejoin="round"/>
-      <rect x="106" y="42" width="8" height="8" fill="#C9A555"/>
-      <text x="4" y="73" fontFamily="Cormorant Garamond, Georgia, serif" fontSize="11" fontWeight="700" letterSpacing="2.5" fill="#1C2B5A">AVA</text>
-      <text x="34" y="73" fontFamily="Cormorant Garamond, Georgia, serif" fontSize="11" fontWeight="700" letterSpacing="2.5" fill="#C9A555"> PROPERTIES</text>
-      <line x1="4" y1="77" x2="44" y2="77" stroke="#C9A555" strokeWidth="0.8"/>
-      <text x="48" y="79" fontFamily="Cormorant Garamond, Georgia, serif" fontSize="7.5" fontWeight="600" letterSpacing="3.5" fill="#1C2B5A">HOME BUYERS</text>
-      <line x1="134" y1="77" x2="180" y2="77" stroke="#C9A555" strokeWidth="0.8"/>
+    <svg viewBox="0 0 480 310" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="AVA Properties Home Buyers">
+
+      {/* ── LEFT A ── navy strokes */}
+      {/* Outer left leg: foot → peak */}
+      <line x1="8" y1="210" x2="130" y2="12" stroke={navy} strokeWidth={sw} strokeLinecap="square"/>
+      {/* Left roofline overhang: peak extends left */}
+      <line x1="82" y1="12" x2="130" y2="12" stroke={navy} strokeWidth={sw} strokeLinecap="square"/>
+      {/* Inner right leg of left A: peak → inner foot */}
+      <line x1="130" y1="12" x2="192" y2="210" stroke={navy} strokeWidth={sw} strokeLinecap="square"/>
+      {/* Crossbar / floor line of left A */}
+      <line x1="48" y1="148" x2="169" y2="148" stroke={navy} strokeWidth={sw} strokeLinecap="square"/>
+
+      {/* ── V ── gold strokes */}
+      {/* Left V leg: from left A peak down to V bottom */}
+      <line x1="130" y1="12" x2="240" y2="176" stroke={gold} strokeWidth={vsw} strokeLinecap="square"/>
+      {/* Right V leg: from V bottom up to right A peak */}
+      <line x1="240" y1="176" x2="350" y2="12" stroke={gold} strokeWidth={vsw} strokeLinecap="square"/>
+
+      {/* ── RIGHT A ── navy strokes */}
+      {/* Inner left leg of right A: peak → inner foot */}
+      <line x1="350" y1="12" x2="288" y2="210" stroke={navy} strokeWidth={sw} strokeLinecap="square"/>
+      {/* Right roofline overhang: peak extends right */}
+      <line x1="350" y1="12" x2="398" y2="12" stroke={navy} strokeWidth={sw} strokeLinecap="square"/>
+      {/* Outer right leg: peak → outer foot */}
+      <line x1="350" y1="12" x2="472" y2="210" stroke={navy} strokeWidth={sw} strokeLinecap="square"/>
+      {/* Crossbar / floor line of right A */}
+      <line x1="311" y1="148" x2="432" y2="148" stroke={navy} strokeWidth={sw} strokeLinecap="square"/>
+
+      {/* ── LEFT WINDOW ── 2×2 gold squares */}
+      <rect x="90"  y="160" width="14" height="14" fill={gold}/>
+      <rect x="108" y="160" width="14" height="14" fill={gold}/>
+      <rect x="90"  y="178" width="14" height="14" fill={gold}/>
+      <rect x="108" y="178" width="14" height="14" fill={gold}/>
+
+      {/* ── RIGHT WINDOW ── 2×2 gold squares */}
+      <rect x="358" y="160" width="14" height="14" fill={gold}/>
+      <rect x="376" y="160" width="14" height="14" fill={gold}/>
+      <rect x="358" y="178" width="14" height="14" fill={gold}/>
+      <rect x="376" y="178" width="14" height="14" fill={gold}/>
+
+      {/* ── TEXT ROW: AVA PROPERTIES ── */}
+      <text fontFamily="Cormorant Garamond, Georgia, serif" fontSize="38" fontWeight="700" letterSpacing="4">
+        <tspan x="52" y="256" fill={navy}>AVA</tspan>
+        <tspan fill={gold}> PROPERTIES</tspan>
+      </text>
+
+      {/* ── HOME BUYERS row ── */}
+      <line x1="52"  y1="270" x2="148" y2="270" stroke={gold} strokeWidth="1.2"/>
+      <text x="156" y="274" fontFamily="Cormorant Garamond, Georgia, serif" fontSize="20" fontWeight="600" letterSpacing="6" fill={navy}>HOME BUYERS</text>
+      <line x1="388" y1="270" x2="430" y2="270" stroke={gold} strokeWidth="1.2"/>
     </svg>
   )
 }
