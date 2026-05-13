@@ -122,14 +122,14 @@ function Hero() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '25%'])
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden">
+    <section ref={ref} className="relative min-h-screen md:min-h-screen flex items-center overflow-hidden">
       <motion.div style={{ y }} className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0e1a3a] via-[#1C2B5A] to-[#0a1228]" />
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle, #C9A555 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
       </motion.div>
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C9A555] to-transparent" />
       <div className="absolute top-32 right-0 w-80 h-80 bg-[#C9A555]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="relative max-w-6xl mx-auto px-6 pt-24 pb-16 grid md:grid-cols-2 gap-12 items-center w-full">
+      <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-8 md:pt-24 md:pb-16 grid md:grid-cols-2 gap-8 md:gap-12 items-center w-full">
         <div>
           {/* Trust signal bar */}
           <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
@@ -148,7 +148,7 @@ function Hero() {
           {/* H1 — keyword-optimized */}
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.15 }}
             style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
-            className="text-4xl md:text-5xl lg:text-[3.25rem] font-black text-white leading-tight mb-3">
+            className="text-3xl md:text-5xl lg:text-[3.25rem] font-black text-white leading-tight mb-3">
             Sell Your House Fast<br />for Cash in Fresno, CA
           </motion.h1>
           {/* H2 — supporting keyword */}
@@ -196,11 +196,11 @@ const steps = [
 
 function HowItWorks() {
   return (
-    <section id="how-it-works" className="bg-slate-50 py-24">
+    <section id="how-it-works" className="bg-slate-50 py-16 md:py-24">
       <div className="max-w-6xl mx-auto px-6">
-        <FadeUp className="text-center mb-16">
+        <FadeUp className="text-center mb-10 md:mb-16">
           <p className="text-[#C9A555] text-sm font-bold uppercase tracking-widest mb-3">Simple 3-Step Process</p>
-          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-4xl md:text-5xl font-bold text-[#1C2B5A]">
+          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-3xl md:text-5xl font-bold text-[#1C2B5A]">
             How We Buy Houses in Fresno
           </h2>
         </FadeUp>
@@ -235,11 +235,11 @@ const situations = [
 
 function Situations() {
   return (
-    <section id="situations" className="bg-[#1C2B5A] py-24">
+    <section id="situations" className="bg-[#1C2B5A] py-16 md:py-24">
       <div className="max-w-6xl mx-auto px-6">
-        <FadeUp className="text-center mb-16">
+        <FadeUp className="text-center mb-10 md:mb-16">
           <p className="text-[#C9A555] text-sm font-bold uppercase tracking-widest mb-3">We Buy In Any Situation</p>
-          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-4xl md:text-5xl font-bold text-white">
+          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-3xl md:text-5xl font-bold text-white">
             Whatever Your Situation,<br />We Have a Solution
           </h2>
         </FadeUp>
@@ -276,11 +276,11 @@ function Comparison() {
     { label: 'Offer Certainty', cash: '100% guaranteed', agent: 'Buyer financing risk' },
   ]
   return (
-    <section className="bg-white py-24">
+    <section className="bg-white py-16 md:py-24">
       <div className="max-w-4xl mx-auto px-6">
-        <FadeUp className="text-center mb-14">
+        <FadeUp className="text-center mb-10 md:mb-14">
           <p className="text-[#C9A555] text-sm font-bold uppercase tracking-widest mb-3">Know Your Options</p>
-          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-4xl md:text-5xl font-bold text-[#1C2B5A]">
+          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-3xl md:text-5xl font-bold text-[#1C2B5A]">
             Selling to AVA Properties<br className="hidden md:block" /> vs. Listing with a Realtor
           </h2>
           <p className="text-slate-500 mt-4 max-w-xl mx-auto text-sm">Selling your Fresno or Clovis home through a traditional agent can take months and cost thousands. Here's how we compare.</p>
@@ -315,15 +315,15 @@ const testimonials = [
 
 function Testimonials() {
   return (
-    <section id="testimonials" className="bg-slate-50 py-24">
+    <section id="testimonials" className="bg-slate-50 py-16 md:py-24">
       <div className="max-w-6xl mx-auto px-6">
         <FadeUp className="text-center mb-5">
           <p className="text-[#C9A555] text-sm font-bold uppercase tracking-widest mb-3">Real Fresno Homeowners</p>
-          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-4xl md:text-5xl font-bold text-[#1C2B5A]">
+          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-3xl md:text-5xl font-bold text-[#1C2B5A]">
             What Our Sellers Say
           </h2>
         </FadeUp>
-        <FadeUp className="text-center mb-14">
+        <FadeUp className="text-center mb-10 md:mb-14">
           <div className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-5 py-2 shadow-sm">
             <span className="text-[#C9A555]">★★★★★</span>
             <span className="text-[#1C2B5A] font-bold text-sm">5.0 · 47 Google Reviews</span>
@@ -365,11 +365,11 @@ const faqs = [
 function FAQ() {
   const [open, setOpen] = useState<number | null>(null)
   return (
-    <section id="faq" className="bg-white py-24">
+    <section id="faq" className="bg-white py-16 md:py-24">
       <div className="max-w-3xl mx-auto px-6">
-        <FadeUp className="text-center mb-16">
+        <FadeUp className="text-center mb-10 md:mb-16">
           <p className="text-[#C9A555] text-sm font-bold uppercase tracking-widest mb-3">Common Questions</p>
-          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-4xl md:text-5xl font-bold text-[#1C2B5A]">
+          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-3xl md:text-5xl font-bold text-[#1C2B5A]">
             Frequently Asked Questions
           </h2>
         </FadeUp>
@@ -403,13 +403,13 @@ function FAQ() {
 // ─── Final CTA ────────────────────────────────────────────────────────────────
 function FinalCTA() {
   return (
-    <section className="relative bg-[#1C2B5A] py-24 overflow-hidden">
+    <section className="relative bg-[#1C2B5A] py-16 md:py-24 overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A555] to-transparent" />
       <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle, #C9A555 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
       <div className="relative max-w-4xl mx-auto px-6 text-center">
         <FadeUp>
           <div className="flex justify-center mb-8"><AvaLogo className="h-16 w-auto" /></div>
-          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-4xl md:text-5xl font-black text-white mb-4">
+          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-3xl md:text-5xl font-black text-white mb-4">
             Ready to Sell Your Fresno Home for Cash?
           </h2>
           <p className="text-slate-300 text-lg mb-10 max-w-xl mx-auto">
@@ -452,10 +452,36 @@ function Footer() {
   )
 }
 
+
+// ─── Mobile Sticky CTA Bar ────────────────────────────────────────────────────
+function MobileCTA() {
+  return (
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#1C2B5A] border-t border-[#C9A555]/30 shadow-2xl">
+      <div className="flex items-stretch">
+        <a href="tel:5599776959"
+          className="flex-1 flex flex-col items-center justify-center py-3 text-white hover:bg-[#243470] transition-colors border-r border-[#C9A555]/20"
+        >
+          <span className="text-xl">📞</span>
+          <span className="text-xs font-bold text-[#C9A555] mt-0.5">Call Now</span>
+          <span className="text-xs text-white/70">(559) 977-6959</span>
+        </a>
+        <a href="#"
+          onClick={(e) => { e.preventDefault(); document.querySelector('form')?.scrollIntoView({ behavior: 'smooth', block: 'center' }) }}
+          className="flex-1 flex flex-col items-center justify-center py-3 bg-[#C9A555] hover:bg-[#e8c97a] transition-colors"
+        >
+          <span className="text-xl">🏡</span>
+          <span className="text-xs font-black text-[#1C2B5A] mt-0.5">Get Cash Offer</span>
+          <span className="text-xs text-[#1C2B5A]/70">Free · No obligation</span>
+        </a>
+      </div>
+    </div>
+  )
+}
+
 // ─── App ──────────────────────────────────────────────────────────────────────
 export default function App() {
   return (
-    <div className="antialiased">
+    <div className="antialiased pb-16 md:pb-0">
       <Navbar />
       <Hero />
       <HowItWorks />
@@ -465,6 +491,7 @@ export default function App() {
       <FAQ />
       <FinalCTA />
       <Footer />
+      <MobileCTA />
     </div>
   )
 }
