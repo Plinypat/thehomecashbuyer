@@ -122,14 +122,14 @@ function Hero() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '25%'])
   return (
-    <section ref={ref} className="relative min-h-screen md:min-h-screen flex items-center overflow-hidden">
+    <section ref={ref} className="relative flex items-center overflow-hidden pt-16">
       <motion.div style={{ y }} className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0e1a3a] via-[#1C2B5A] to-[#0a1228]" />
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle, #C9A555 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
       </motion.div>
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C9A555] to-transparent" />
       <div className="absolute top-32 right-0 w-80 h-80 bg-[#C9A555]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-8 md:pt-24 md:pb-16 grid md:grid-cols-2 gap-8 md:gap-12 items-center w-full">
+      <div className="relative max-w-6xl mx-auto px-6 pt-6 pb-8 md:pt-24 md:pb-16 grid md:grid-cols-2 gap-6 md:gap-12 items-center w-full">
         <div>
           {/* Trust signal bar */}
           <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
@@ -178,8 +178,9 @@ function Hero() {
             📞 (559) 977-6959
           </motion.a>
         </div>
+        {/* Form — order-1 on mobile so it appears above copy */}
         <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.3 }}
-          className="flex justify-center md:justify-end">
+          className="flex justify-center md:justify-end order-1 md:order-2">
           <LeadForm />
         </motion.div>
       </div>
@@ -286,8 +287,8 @@ function Comparison() {
           <p className="text-slate-500 mt-4 max-w-xl mx-auto text-sm">Selling your Fresno or Clovis home through a traditional agent can take months and cost thousands. Here's how we compare.</p>
         </FadeUp>
         <FadeUp>
-          <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
-            <div className="grid grid-cols-3 bg-[#1C2B5A] text-white text-sm font-bold py-4 px-6">
+          <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm overflow-x-auto">
+            <div className="grid grid-cols-3 bg-[#1C2B5A] text-white text-sm font-bold py-4 px-4 min-w-[500px]">
               <span className="text-slate-300">Factor</span>
               <span className="text-[#C9A555] text-center">AVA Properties</span>
               <span className="text-center">Traditional Agent</span>
