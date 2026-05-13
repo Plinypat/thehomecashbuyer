@@ -2,62 +2,45 @@ import { useState, useRef } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion'
 
 // ─── AVA Logo SVG ─────────────────────────────────────────────────────────────
-function AvaLogo({ className = '' }: { className?: string }) {
-  // Navy: #1C2B5A  Gold: #B8962E
-  const navy = "#1C2B5A"
-  const gold = "#B8962E"
-  const sw = 8    // stroke width for A legs
-  const vsw = 8   // stroke width for V
+// light=true → white strokes (for dark navy backgrounds)
+// light=false (default) → navy strokes (for white/light backgrounds)
+function AvaLogo({ className = '', light = false }: { className?: string; light?: boolean }) {
+  const primary = light ? "#FFFFFF" : "#1C2B5A"
+  const gold = "#C9A555"
+  const sw = 8
   return (
     <svg viewBox="0 0 480 310" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="AVA Properties Home Buyers">
-
-      {/* ── LEFT A ── navy strokes */}
-      {/* Outer left leg: foot → peak */}
-      <line x1="8" y1="210" x2="130" y2="12" stroke={navy} strokeWidth={sw} strokeLinecap="square"/>
-      {/* Left roofline overhang: peak extends left */}
-      <line x1="82" y1="12" x2="130" y2="12" stroke={navy} strokeWidth={sw} strokeLinecap="square"/>
-      {/* Inner right leg of left A: peak → inner foot */}
-      <line x1="130" y1="12" x2="192" y2="210" stroke={navy} strokeWidth={sw} strokeLinecap="square"/>
-      {/* Crossbar / floor line of left A */}
-      <line x1="48" y1="148" x2="169" y2="148" stroke={navy} strokeWidth={sw} strokeLinecap="square"/>
-
-      {/* ── V ── gold strokes */}
-      {/* Left V leg: from left A peak down to V bottom */}
-      <line x1="130" y1="12" x2="240" y2="176" stroke={gold} strokeWidth={vsw} strokeLinecap="square"/>
-      {/* Right V leg: from V bottom up to right A peak */}
-      <line x1="240" y1="176" x2="350" y2="12" stroke={gold} strokeWidth={vsw} strokeLinecap="square"/>
-
-      {/* ── RIGHT A ── navy strokes */}
-      {/* Inner left leg of right A: peak → inner foot */}
-      <line x1="350" y1="12" x2="288" y2="210" stroke={navy} strokeWidth={sw} strokeLinecap="square"/>
-      {/* Right roofline overhang: peak extends right */}
-      <line x1="350" y1="12" x2="398" y2="12" stroke={navy} strokeWidth={sw} strokeLinecap="square"/>
-      {/* Outer right leg: peak → outer foot */}
-      <line x1="350" y1="12" x2="472" y2="210" stroke={navy} strokeWidth={sw} strokeLinecap="square"/>
-      {/* Crossbar / floor line of right A */}
-      <line x1="311" y1="148" x2="432" y2="148" stroke={navy} strokeWidth={sw} strokeLinecap="square"/>
-
-      {/* ── LEFT WINDOW ── 2×2 gold squares */}
+      {/* ── LEFT A ── */}
+      <line x1="8"   y1="210" x2="130" y2="12"  stroke={primary} strokeWidth={sw} strokeLinecap="square"/>
+      <line x1="82"  y1="12"  x2="130" y2="12"  stroke={primary} strokeWidth={sw} strokeLinecap="square"/>
+      <line x1="130" y1="12"  x2="192" y2="210" stroke={primary} strokeWidth={sw} strokeLinecap="square"/>
+      <line x1="48"  y1="148" x2="169" y2="148" stroke={primary} strokeWidth={sw} strokeLinecap="square"/>
+      {/* ── V (always gold) ── */}
+      <line x1="130" y1="12"  x2="240" y2="176" stroke={gold} strokeWidth={sw} strokeLinecap="square"/>
+      <line x1="240" y1="176" x2="350" y2="12"  stroke={gold} strokeWidth={sw} strokeLinecap="square"/>
+      {/* ── RIGHT A ── */}
+      <line x1="350" y1="12"  x2="288" y2="210" stroke={primary} strokeWidth={sw} strokeLinecap="square"/>
+      <line x1="350" y1="12"  x2="398" y2="12"  stroke={primary} strokeWidth={sw} strokeLinecap="square"/>
+      <line x1="350" y1="12"  x2="472" y2="210" stroke={primary} strokeWidth={sw} strokeLinecap="square"/>
+      <line x1="311" y1="148" x2="432" y2="148" stroke={primary} strokeWidth={sw} strokeLinecap="square"/>
+      {/* ── LEFT WINDOW ── gold squares */}
       <rect x="90"  y="160" width="14" height="14" fill={gold}/>
       <rect x="108" y="160" width="14" height="14" fill={gold}/>
       <rect x="90"  y="178" width="14" height="14" fill={gold}/>
       <rect x="108" y="178" width="14" height="14" fill={gold}/>
-
-      {/* ── RIGHT WINDOW ── 2×2 gold squares */}
+      {/* ── RIGHT WINDOW ── gold squares */}
       <rect x="358" y="160" width="14" height="14" fill={gold}/>
       <rect x="376" y="160" width="14" height="14" fill={gold}/>
       <rect x="358" y="178" width="14" height="14" fill={gold}/>
       <rect x="376" y="178" width="14" height="14" fill={gold}/>
-
-      {/* ── TEXT ROW: AVA PROPERTIES ── */}
+      {/* ── AVA PROPERTIES text ── */}
       <text fontFamily="Cormorant Garamond, Georgia, serif" fontSize="38" fontWeight="700" letterSpacing="4">
-        <tspan x="52" y="256" fill={navy}>AVA</tspan>
+        <tspan x="52" y="256" fill={primary}>AVA</tspan>
         <tspan fill={gold}> PROPERTIES</tspan>
       </text>
-
       {/* ── HOME BUYERS row ── */}
       <line x1="52"  y1="270" x2="148" y2="270" stroke={gold} strokeWidth="1.2"/>
-      <text x="156" y="274" fontFamily="Cormorant Garamond, Georgia, serif" fontSize="20" fontWeight="600" letterSpacing="6" fill={navy}>HOME BUYERS</text>
+      <text x="156" y="274" fontFamily="Cormorant Garamond, Georgia, serif" fontSize="20" fontWeight="600" letterSpacing="6" fill={primary}>HOME BUYERS</text>
       <line x1="388" y1="270" x2="430" y2="270" stroke={gold} strokeWidth="1.2"/>
     </svg>
   )
@@ -76,6 +59,14 @@ function FadeUp({ children, delay = 0, className = '' }: { children: React.React
   )
 }
 
+// ─── NavLogo: switches between light/dark based on scroll ────────────────────
+function NavLogo() {
+  const { scrollY } = useScroll()
+  const [isLight, setIsLight] = useState(true)
+  scrollY.on('change', (v) => setIsLight(v < 60))
+  return <AvaLogo className="h-10 w-auto" light={isLight} />
+}
+
 // ─── Navbar ───────────────────────────────────────────────────────────────────
 function Navbar() {
   const [open, setOpen] = useState(false)
@@ -91,7 +82,10 @@ function Navbar() {
   return (
     <motion.header style={{ backgroundColor: bg, boxShadow: shadow }} className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#"><AvaLogo className="h-10 w-auto" /></a>
+        <a href="#">
+          {/* Light logo when over dark hero, navy logo when navbar goes white */}
+          <NavLogo />
+        </a>
         <nav className="hidden md:flex items-center gap-7">
           {links.map((l) => (
             <a key={l.href} href={l.href} className="text-sm font-semibold text-slate-600 hover:text-[#1C2B5A] transition-colors">{l.label}</a>
@@ -186,7 +180,7 @@ function Hero() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.05 }} className="mb-5">
-            <AvaLogo className="h-14 w-auto" />
+            <AvaLogo className="h-14 w-auto" light={true} />
           </motion.div>
 
           {/* H1 — keyword-optimized */}
@@ -453,7 +447,7 @@ function FinalCTA() {
       <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle, #C9A555 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
       <div className="relative max-w-4xl mx-auto px-6 text-center">
         <FadeUp>
-          <div className="flex justify-center mb-8"><AvaLogo className="h-16 w-auto" /></div>
+          <div className="flex justify-center mb-8"><AvaLogo className="h-16 w-auto" light={true} /></div>
           <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-3xl md:text-5xl font-black text-white mb-4">
             Ready to Sell Your Fresno Home for Cash?
           </h2>
@@ -484,7 +478,7 @@ function Footer() {
     <footer className="bg-[#0e1a3a] border-t border-white/10 py-12">
       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
-          <AvaLogo className="h-10 w-auto mb-2" />
+          <AvaLogo className="h-10 w-auto mb-2" light={true} />
           <p className="text-slate-500 text-sm">Fresno & Clovis, CA · (559) 977-6959</p>
           <p className="text-slate-600 text-xs mt-1">Cash home buyers serving Fresno County, CA</p>
         </div>
