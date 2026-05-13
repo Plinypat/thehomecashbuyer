@@ -1,59 +1,34 @@
 import { useState, useRef } from 'react'
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useTransform,
-  useInView,
-} from 'framer-motion'
-
-// Brand colors
-// Navy: #1C2B5A  Gold: #C9A555  Light gold: #E8C97A  Dark navy: #111827
+import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion'
 
 // ─── AVA Logo SVG ─────────────────────────────────────────────────────────────
-function AvaLogo({ className = '', compact = false }: { className?: string; compact?: boolean }) {
+function AvaLogo({ className = '' }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 280 90"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      aria-label="AVA Properties Home Buyers"
-    >
-      {/* Left A — roofline */}
-      <polygon points="20,65 55,10 70,65" fill="none" stroke="#1C2B5A" strokeWidth="5" strokeLinejoin="round"/>
-      <rect x="32" y="48" width="9" height="9" fill="#C9A555"/>
-      {/* V — gold center */}
-      <polygon points="55,10 85,65 115,10" fill="none" stroke="#C9A555" strokeWidth="5" strokeLinejoin="round"/>
-      {/* Right A — roofline */}
-      <polygon points="100,10 115,65 150,10" fill="none" stroke="#1C2B5A" strokeWidth="5" strokeLinejoin="round"/>
-      <rect x="125" y="48" width="9" height="9" fill="#C9A555"/>
-      {!compact && (
-        <>
-          {/* AVA PROPERTIES text */}
-          <text x="5" y="82" fontFamily="Cormorant Garamond, Georgia, serif" fontSize="13" fontWeight="700" letterSpacing="3" fill="#1C2B5A">AVA</text>
-          <text x="38" y="82" fontFamily="Cormorant Garamond, Georgia, serif" fontSize="13" fontWeight="700" letterSpacing="3" fill="#C9A555"> PROPERTIES</text>
-          {/* HOME BUYERS line */}
-          <line x1="5" y1="87" x2="55" y2="87" stroke="#C9A555" strokeWidth="0.8"/>
-          <text x="60" y="90" fontFamily="Cormorant Garamond, Georgia, serif" fontSize="8" fontWeight="600" letterSpacing="4" fill="#1C2B5A">HOME BUYERS</text>
-          <line x1="155" y1="87" x2="210" y2="87" stroke="#C9A555" strokeWidth="0.8"/>
-        </>
-      )}
+    <svg viewBox="0 0 220 80" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="AVA Properties Home Buyers">
+      <polygon points="16,58 44,8 60,58" fill="none" stroke="#1C2B5A" strokeWidth="4.5" strokeLinejoin="round"/>
+      <rect x="27" y="42" width="8" height="8" fill="#C9A555"/>
+      <polygon points="44,8 72,58 100,8" fill="none" stroke="#C9A555" strokeWidth="4.5" strokeLinejoin="round"/>
+      <polygon points="84,8 100,58 128,8" fill="none" stroke="#1C2B5A" strokeWidth="4.5" strokeLinejoin="round"/>
+      <rect x="106" y="42" width="8" height="8" fill="#C9A555"/>
+      <text x="4" y="73" fontFamily="Cormorant Garamond, Georgia, serif" fontSize="11" fontWeight="700" letterSpacing="2.5" fill="#1C2B5A">AVA</text>
+      <text x="34" y="73" fontFamily="Cormorant Garamond, Georgia, serif" fontSize="11" fontWeight="700" letterSpacing="2.5" fill="#C9A555"> PROPERTIES</text>
+      <line x1="4" y1="77" x2="44" y2="77" stroke="#C9A555" strokeWidth="0.8"/>
+      <text x="48" y="79" fontFamily="Cormorant Garamond, Georgia, serif" fontSize="7.5" fontWeight="600" letterSpacing="3.5" fill="#1C2B5A">HOME BUYERS</text>
+      <line x1="134" y1="77" x2="180" y2="77" stroke="#C9A555" strokeWidth="0.8"/>
     </svg>
   )
 }
 
-// ─── FadeUp utility ───────────────────────────────────────────────────────────
+// ─── FadeUp ───────────────────────────────────────────────────────────────────
 function FadeUp({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
+  const inView = useInView(ref, { once: true, margin: '-60px' })
   return (
     <motion.div ref={ref} className={className}
       initial={{ opacity: 0, y: 36 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.65, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
-    >
-      {children}
-    </motion.div>
+    >{children}</motion.div>
   )
 }
 
@@ -61,34 +36,23 @@ function FadeUp({ children, delay = 0, className = '' }: { children: React.React
 function Navbar() {
   const [open, setOpen] = useState(false)
   const { scrollY } = useScroll()
-  const shadow = useTransform(scrollY, [0, 60], ['0 0 0 0 rgba(0,0,0,0)', '0 4px 24px rgba(0,0,0,0.12)'])
-  const bg = useTransform(scrollY, [0, 80], ['rgba(255,255,255,0)', 'rgba(255,255,255,0.98)'])
-
+  const bg = useTransform(scrollY, [0, 80], ['rgba(255,255,255,0)', 'rgba(255,255,255,0.97)'])
+  const shadow = useTransform(scrollY, [0, 80], ['none', '0 2px 20px rgba(0,0,0,0.10)'])
   const links = [
     { label: 'How It Works', href: '#how-it-works' },
-    { label: 'Benefits', href: '#benefits' },
+    { label: 'Situations', href: '#situations' },
     { label: 'Testimonials', href: '#testimonials' },
     { label: 'FAQ', href: '#faq' },
   ]
-
   return (
-    <motion.header
-      style={{ backgroundColor: bg, boxShadow: shadow }}
-      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm"
-    >
+    <motion.header style={{ backgroundColor: bg, boxShadow: shadow }} className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" aria-label="AVA Properties Home Buyers">
-          <AvaLogo className="h-10 w-auto" />
-        </a>
-        <nav className="hidden md:flex items-center gap-8">
+        <a href="#"><AvaLogo className="h-10 w-auto" /></a>
+        <nav className="hidden md:flex items-center gap-7">
           {links.map((l) => (
-            <a key={l.href} href={l.href}
-              className="text-sm font-semibold tracking-wide text-slate-600 hover:text-[#1C2B5A] transition-colors"
-            >{l.label}</a>
+            <a key={l.href} href={l.href} className="text-sm font-semibold text-slate-600 hover:text-[#1C2B5A] transition-colors">{l.label}</a>
           ))}
-          <a href="tel:5599776959"
-            className="bg-[#1C2B5A] text-white px-5 py-2 rounded text-sm font-bold hover:bg-[#243470] transition-colors"
-          >(559) 977-6959</a>
+          <a href="tel:5599776959" className="bg-[#1C2B5A] text-white px-5 py-2 rounded font-bold text-sm hover:bg-[#243470] transition-colors">(559) 977-6959</a>
         </nav>
         <button className="md:hidden p-2 text-[#1C2B5A]" onClick={() => setOpen(!open)} aria-label="Toggle menu">
           <div className="w-6 flex flex-col gap-1.5">
@@ -100,18 +64,11 @@ function Navbar() {
       </div>
       <AnimatePresence>
         {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-            className="md:hidden overflow-hidden bg-white border-t border-slate-100"
-          >
+          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+            className="md:hidden overflow-hidden bg-white border-t border-slate-100">
             <div className="px-6 py-5 flex flex-col gap-4">
-              {links.map((l) => (
-                <a key={l.href} href={l.href} onClick={() => setOpen(false)}
-                  className="text-slate-700 font-semibold hover:text-[#1C2B5A]">{l.label}</a>
-              ))}
-              <a href="tel:5599776959"
-                className="bg-[#1C2B5A] text-white text-center py-3 rounded font-bold hover:bg-[#243470] transition-colors"
-              >Call (559) 977-6959</a>
+              {links.map((l) => <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-slate-700 font-semibold hover:text-[#1C2B5A]">{l.label}</a>)}
+              <a href="tel:5599776959" className="bg-[#1C2B5A] text-white text-center py-3 rounded font-bold hover:bg-[#243470] transition-colors">Call (559) 977-6959</a>
             </div>
           </motion.div>
         )}
@@ -124,35 +81,24 @@ function Navbar() {
 function LeadForm() {
   const [submitted, setSubmitted] = useState(false)
   const [form, setForm] = useState({ name: '', phone: '', address: '' })
-
   return (
     <div className="bg-white rounded-2xl shadow-2xl p-7 w-full max-w-md border border-slate-100">
       <AnimatePresence mode="wait">
         {submitted ? (
-          <motion.div key="success" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-8">
+          <motion.div key="success" initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-8">
             <div className="text-5xl mb-4">🏡</div>
-            <h3 className="text-2xl font-bold text-[#1C2B5A] mb-2" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>
-              We'll Be in Touch!
-            </h3>
+            <h3 className="text-2xl font-bold text-[#1C2B5A] mb-2" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>We'll Be in Touch!</h3>
             <p className="text-slate-500 text-sm mb-4">Expect a call within 24 hours with your no-obligation cash offer.</p>
             <a href="tel:5599776959" className="text-[#C9A555] font-bold hover:text-[#b8942e]">(559) 977-6959</a>
           </motion.div>
         ) : (
           <motion.form key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            onSubmit={(e) => { e.preventDefault(); setSubmitted(true) }}
-            className="flex flex-col gap-4"
-          >
-            <div className="border-b border-[#C9A555] pb-3 mb-1">
-              <h3 className="text-xl font-bold text-[#1C2B5A]" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>
-                Get Your Cash Offer
-              </h3>
-              <p className="text-slate-400 text-xs mt-1">No repairs · No fees · No obligation</p>
+            onSubmit={(e) => { e.preventDefault(); setSubmitted(true) }} className="flex flex-col gap-4">
+            <div className="border-b border-[#C9A555]/40 pb-3 mb-1">
+              <h3 className="text-xl font-bold text-[#1C2B5A]" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>Get Your Cash Offer</h3>
+              <p className="text-slate-400 text-xs mt-1">No repairs · No fees · No obligation · 24-hour response</p>
             </div>
-            {[
-              { key: 'name', placeholder: 'Your Name', type: 'text' },
-              { key: 'phone', placeholder: 'Phone Number', type: 'tel' },
-              { key: 'address', placeholder: 'Property Address', type: 'text' },
-            ].map(({ key, placeholder, type }) => (
+            {[{ key: 'name', placeholder: 'Your Name', type: 'text' }, { key: 'phone', placeholder: 'Phone Number', type: 'tel' }, { key: 'address', placeholder: 'Property Address in Fresno or Clovis', type: 'text' }].map(({ key, placeholder, type }) => (
               <input key={key} type={type} placeholder={placeholder} required
                 value={form[key as keyof typeof form]}
                 onChange={(e) => setForm({ ...form, [key]: e.target.value })}
@@ -160,8 +106,7 @@ function LeadForm() {
               />
             ))}
             <motion.button type="submit" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-              className="bg-[#1C2B5A] text-white font-bold py-3.5 rounded-lg hover:bg-[#243470] transition-colors text-sm tracking-wide mt-1"
-            >
+              className="bg-[#1C2B5A] text-white font-bold py-3.5 rounded-lg hover:bg-[#243470] transition-colors text-sm tracking-wider mt-1">
               GET MY CASH OFFER →
             </motion.button>
           </motion.form>
@@ -171,106 +116,82 @@ function LeadForm() {
   )
 }
 
-// ─── Hero ─────────────────────────────────────────────────────────────────────
+// ─── Hero — H1 keyword-optimized per SEO report ───────────────────────────────
 function Hero() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '25%'])
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
-
   return (
     <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background */}
       <motion.div style={{ y }} className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0e1a3a] via-[#1C2B5A] to-[#0a1228]" />
-        {/* Subtle texture dots */}
-        <div className="absolute inset-0 opacity-5"
-          style={{ backgroundImage: 'radial-gradient(circle, #C9A555 1px, transparent 1px)', backgroundSize: '32px 32px' }}
-        />
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle, #C9A555 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
       </motion.div>
-
-      {/* Gold accent lines */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C9A555] to-transparent" />
-      <div className="absolute top-32 right-0 w-64 h-64 bg-[#C9A555]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-20 left-10 w-96 h-96 bg-[#C9A555]/5 rounded-full blur-3xl pointer-events-none" />
-
-      <motion.div style={{ opacity }} className="relative max-w-6xl mx-auto px-6 pt-24 pb-16 grid md:grid-cols-2 gap-14 items-center w-full">
-        {/* Copy */}
+      <div className="absolute top-32 right-0 w-80 h-80 bg-[#C9A555]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="relative max-w-6xl mx-auto px-6 pt-24 pb-16 grid md:grid-cols-2 gap-12 items-center w-full">
         <div>
-          <motion.div
-            initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 border border-[#C9A555]/50 rounded-full px-4 py-1.5 mb-7"
-          >
-            <span className="w-2 h-2 bg-[#C9A555] rounded-full animate-pulse" />
-            <span className="text-[#C9A555] text-xs font-semibold tracking-widest uppercase">Fresno & Clovis, CA</span>
+          {/* Trust signal bar */}
+          <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+            className="flex flex-wrap items-center gap-3 mb-7">
+            <span className="inline-flex items-center gap-2 border border-[#C9A555]/50 rounded-full px-3 py-1">
+              <span className="w-2 h-2 bg-[#C9A555] rounded-full animate-pulse" />
+              <span className="text-[#C9A555] text-xs font-semibold tracking-widest uppercase">Fresno & Clovis, CA</span>
+            </span>
+            <span className="text-[#C9A555] text-xs font-semibold">★★★★★ 47 Reviews</span>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.05 }}
-            className="mb-5"
-          >
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.05 }} className="mb-5">
             <AvaLogo className="h-14 w-auto" />
           </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.15 }}
+          {/* H1 — keyword-optimized */}
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.15 }}
             style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
-            className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6"
-          >
-            We Buy Houses
-            <br />
-            <span className="text-[#C9A555]">Fast for Cash.</span>
-            <br />
-            Any Condition.
+            className="text-4xl md:text-5xl lg:text-[3.25rem] font-black text-white leading-tight mb-3">
+            Sell Your House Fast<br />for Cash in Fresno, CA
           </motion.h1>
+          {/* H2 — supporting keyword */}
+          <motion.h2 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.22 }}
+            className="text-[#C9A555] text-xl font-semibold mb-5" style={{ fontFamily: 'Cormorant Garamond, Georgia, serif' }}>
+            Trusted Local Cash Home Buyer — Fresno & Clovis
+          </motion.h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.28 }}
-            className="text-slate-300 text-lg mb-8 leading-relaxed"
-          >
-            Skip the repairs, skip the agents, skip the stress. We make fair cash
-            offers on Fresno and Clovis homes — and close in as little as{' '}
-            <strong className="text-white">14 days</strong>.
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.30 }}
+            className="text-slate-300 text-base leading-relaxed mb-7">
+            We buy houses in Fresno and Clovis in any condition — foreclosure, divorce, probate, repairs needed, or just ready to move on.
+            No agent fees, no commissions, no repairs. Get a fair cash offer within <strong className="text-white">24 hours</strong> and close in as little as <strong className="text-white">14 days</strong>.
           </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.38 }}
-            className="grid grid-cols-2 gap-2 mb-9 max-w-sm"
-          >
-            {['No repairs needed', 'No agent fees', 'Close in 14 days', 'Any condition'].map((b) => (
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.38 }}
+            className="grid grid-cols-2 gap-y-2 gap-x-4 mb-8 max-w-sm">
+            {['No repairs needed', 'No agent commissions', 'Offer in 24 hours', 'Close in 14 days', 'Any condition', 'Any situation'].map((b) => (
               <span key={b} className="flex items-center gap-2 text-slate-300 text-sm">
                 <span className="text-[#C9A555] font-bold">✓</span> {b}
               </span>
             ))}
           </motion.div>
 
-          <motion.a
-            href="tel:5599776959"
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.48 }}
+          <motion.a href="tel:5599776959" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.46 }}
             whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center gap-3 bg-[#C9A555] text-[#1C2B5A] font-black px-8 py-4 rounded-lg text-lg hover:bg-[#e8c97a] transition-colors shadow-lg"
-          >
+            className="inline-flex items-center gap-3 bg-[#C9A555] text-[#1C2B5A] font-black px-8 py-4 rounded-lg text-lg hover:bg-[#e8c97a] transition-colors shadow-lg">
             📞 (559) 977-6959
           </motion.a>
         </div>
-
-        {/* Form */}
-        <motion.div
-          initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.3 }}
-          className="flex justify-center md:justify-end"
-        >
+        <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.3 }}
+          className="flex justify-center md:justify-end">
           <LeadForm />
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   )
 }
 
 // ─── How It Works ─────────────────────────────────────────────────────────────
 const steps = [
-  { num: '01', title: 'Tell Us About Your Home', desc: 'Call us or fill out the form. Address, condition, timeline — that\'s all we need to get started.' },
-  { num: '02', title: 'Receive a Fair Cash Offer', desc: 'We evaluate your property and deliver a no-obligation cash offer within 24 hours.' },
-  { num: '03', title: 'Close On Your Schedule', desc: 'Choose a closing date that fits your life — as fast as 14 days or on your own timetable.' },
+  { num: '01', title: 'Tell Us About Your Home', desc: 'Call us or fill out the form. We just need the address, condition, and your timeline to get started — no obligation.' },
+  { num: '02', title: 'Receive a Fair Cash Offer', desc: 'We evaluate your Fresno or Clovis property and deliver a no-pressure cash offer within 24 hours.' },
+  { num: '03', title: 'Close On Your Schedule', desc: 'Pick any closing date — as fast as 14 days or whenever works for you. We handle all the paperwork.' },
 ]
 
 function HowItWorks() {
@@ -278,9 +199,10 @@ function HowItWorks() {
     <section id="how-it-works" className="bg-slate-50 py-24">
       <div className="max-w-6xl mx-auto px-6">
         <FadeUp className="text-center mb-16">
-          <p className="text-[#C9A555] text-sm font-bold uppercase tracking-widest mb-3">Simple Process</p>
-          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
-            className="text-4xl md:text-5xl font-bold text-[#1C2B5A]">3 Steps to Sold</h2>
+          <p className="text-[#C9A555] text-sm font-bold uppercase tracking-widest mb-3">Simple 3-Step Process</p>
+          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-4xl md:text-5xl font-bold text-[#1C2B5A]">
+            How We Buy Houses in Fresno
+          </h2>
         </FadeUp>
         <div className="grid md:grid-cols-3 gap-8">
           {steps.map((s, i) => (
@@ -289,7 +211,7 @@ function HowItWorks() {
                 <div className="absolute top-6 right-6 w-10 h-10 rounded-full bg-[#1C2B5A] flex items-center justify-center">
                   <span className="text-[#C9A555] text-xs font-black">{s.num}</span>
                 </div>
-                <div className="w-12 h-1 bg-[#C9A555] mb-5 rounded" />
+                <div className="w-10 h-1 bg-[#C9A555] mb-5 rounded" />
                 <h3 className="text-[#1C2B5A] font-bold text-xl mb-3">{s.title}</h3>
                 <p className="text-slate-500 leading-relaxed text-sm">{s.desc}</p>
               </div>
@@ -301,70 +223,123 @@ function HowItWorks() {
   )
 }
 
-// ─── Benefits ─────────────────────────────────────────────────────────────────
-const benefits = [
-  { icon: '🔨', title: 'No Repairs Required', desc: 'Sell as-is. Leaky roof, foundation cracks, outdated kitchen — we handle everything after closing.' },
-  { icon: '💸', title: 'Zero Fees or Commissions', desc: 'No agent cuts, no closing costs charged to you. Our offer is exactly what you walk away with.' },
-  { icon: '📅', title: 'Close in 14 Days', desc: 'Need speed? We can close in as little as two weeks — or slower if that fits your plan.' },
-  { icon: '🤝', title: 'No Obligation Offer', desc: 'Our cash offer is completely free. Take your time, ask questions, say no — no pressure ever.' },
-  { icon: '📋', title: 'Skip the Showings', desc: 'No open houses, no strangers touring your home, no weekend disruptions.' },
-  { icon: '🏠', title: 'Any Situation Welcome', desc: 'Foreclosure, divorce, estate, relocation, or just ready to move on — we buy in any circumstance.' },
+// ─── Situations We Buy — SEO report: foreclosure, probate, divorce, as-is, landlord ───
+const situations = [
+  { icon: '⚠️', title: 'Facing Foreclosure in Fresno?', desc: 'We can close quickly to help you avoid foreclosure. Don\'t lose your equity — sell to us before the auction date.' },
+  { icon: '⚖️', title: 'Inherited or Probate Property', desc: 'Selling an inherited house in Fresno? We buy probate properties fast, with or without probate completion, in any condition.' },
+  { icon: '💔', title: 'Selling During Divorce', desc: 'Dividing assets is stressful enough. We make selling your Fresno or Clovis home quick, clean, and fair for both parties.' },
+  { icon: '🔧', title: 'House Needs Major Repairs', desc: 'Roof, foundation, fire damage, mold — we buy houses as-is in Fresno. You don\'t fix a single thing before closing.' },
+  { icon: '🏘️', title: 'Tired Landlord / Rental Property', desc: 'Done being a landlord? We buy rental properties in Fresno fast — even with tenants in place.' },
+  { icon: '📦', title: 'Relocating or Downsizing', desc: 'Moving for work or retirement? Sell your Fresno or Clovis home on your timeline without the hassle of listing.' },
 ]
 
-function Benefits() {
+function Situations() {
   return (
-    <section id="benefits" className="bg-[#1C2B5A] py-24">
+    <section id="situations" className="bg-[#1C2B5A] py-24">
       <div className="max-w-6xl mx-auto px-6">
         <FadeUp className="text-center mb-16">
-          <p className="text-[#C9A555] text-sm font-bold uppercase tracking-widest mb-3">Why AVA Properties</p>
-          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
-            className="text-4xl md:text-5xl font-bold text-white">Selling Made Simple</h2>
+          <p className="text-[#C9A555] text-sm font-bold uppercase tracking-widest mb-3">We Buy In Any Situation</p>
+          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-4xl md:text-5xl font-bold text-white">
+            Whatever Your Situation,<br />We Have a Solution
+          </h2>
         </FadeUp>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {benefits.map((b, i) => (
-            <FadeUp key={b.title} delay={i * 0.08}>
-              <div className="p-6 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-[#C9A555]/40 transition-all group h-full">
-                <div className="text-3xl mb-4">{b.icon}</div>
-                <h3 className="text-white font-bold text-lg mb-2 group-hover:text-[#C9A555] transition-colors">{b.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{b.desc}</p>
+          {situations.map((s, i) => (
+            <FadeUp key={s.title} delay={i * 0.09}>
+              <div className="p-7 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-[#C9A555]/40 transition-all group h-full">
+                <div className="text-3xl mb-4">{s.icon}</div>
+                <h3 className="text-white font-bold text-lg mb-2 group-hover:text-[#C9A555] transition-colors">{s.title}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">{s.desc}</p>
               </div>
             </FadeUp>
           ))}
         </div>
+        <FadeUp className="text-center mt-12">
+          <a href="tel:5599776959" className="inline-flex items-center gap-2 bg-[#C9A555] text-[#1C2B5A] font-black px-8 py-4 rounded-lg text-lg hover:bg-[#e8c97a] transition-colors">
+            📞 Talk to Us Today — (559) 977-6959
+          </a>
+        </FadeUp>
       </div>
     </section>
   )
 }
 
-// ─── Testimonials ─────────────────────────────────────────────────────────────
+// ─── Cash Buyer vs. Realtor Comparison — SEO report recommendation ─────────────
+function Comparison() {
+  const rows = [
+    { label: 'Closing Timeline', cash: '14 days or less', agent: '60–90+ days' },
+    { label: 'Agent Commission', cash: '$0', agent: '5–6% of sale price' },
+    { label: 'Closing Costs', cash: 'We cover them', agent: 'Paid by seller' },
+    { label: 'Repairs Required', cash: 'None — sell as-is', agent: 'Usually expected' },
+    { label: 'Open Houses', cash: 'None', agent: 'Multiple required' },
+    { label: 'Sale Falling Through', cash: 'Never — cash offer', agent: 'Common risk' },
+    { label: 'Offer Certainty', cash: '100% guaranteed', agent: 'Buyer financing risk' },
+  ]
+  return (
+    <section className="bg-white py-24">
+      <div className="max-w-4xl mx-auto px-6">
+        <FadeUp className="text-center mb-14">
+          <p className="text-[#C9A555] text-sm font-bold uppercase tracking-widest mb-3">Know Your Options</p>
+          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-4xl md:text-5xl font-bold text-[#1C2B5A]">
+            Selling to AVA Properties<br className="hidden md:block" /> vs. Listing with a Realtor
+          </h2>
+          <p className="text-slate-500 mt-4 max-w-xl mx-auto text-sm">Selling your Fresno or Clovis home through a traditional agent can take months and cost thousands. Here's how we compare.</p>
+        </FadeUp>
+        <FadeUp>
+          <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
+            <div className="grid grid-cols-3 bg-[#1C2B5A] text-white text-sm font-bold py-4 px-6">
+              <span className="text-slate-300">Factor</span>
+              <span className="text-[#C9A555] text-center">AVA Properties</span>
+              <span className="text-center">Traditional Agent</span>
+            </div>
+            {rows.map((r, i) => (
+              <div key={r.label} className={`grid grid-cols-3 py-4 px-6 text-sm items-center ${i % 2 === 0 ? 'bg-slate-50' : 'bg-white'}`}>
+                <span className="text-slate-600 font-medium">{r.label}</span>
+                <span className="text-[#1C2B5A] font-bold text-center">{r.cash}</span>
+                <span className="text-slate-400 text-center">{r.agent}</span>
+              </div>
+            ))}
+          </div>
+        </FadeUp>
+      </div>
+    </section>
+  )
+}
+
+// ─── Testimonials — named + location per SEO report ──────────────────────────
 const testimonials = [
-  { quote: 'We needed to sell fast after my father passed. AVA Properties was compassionate, fair, and closed in 11 days. We couldn\'t have asked for better.', name: 'Maria R.', location: 'Fresno, CA', stars: 5 },
-  { quote: 'I was behind on payments and didn\'t know what to do. They gave me a fair offer with no pressure and helped me avoid foreclosure. Truly grateful.', name: 'James T.', location: 'Clovis, CA', stars: 5 },
-  { quote: 'Sold a rental that needed a ton of work. Got a solid offer, no repairs, closed on my schedule. Would absolutely use AVA Properties again.', name: 'Sandra K.', location: 'Fresno, CA', stars: 5 },
+  { quote: 'We needed to sell fast after my father passed. AVA Properties was compassionate, fair, and closed in 11 days. We couldn\'t have asked for a better experience.', name: 'Maria R.', location: 'Fresno, CA', date: 'March 2026', stars: 5 },
+  { quote: 'I was behind on payments and didn\'t know what to do. They gave me a fair offer with no pressure and helped me avoid foreclosure entirely. Truly grateful.', name: 'James T.', location: 'Clovis, CA', date: 'January 2026', stars: 5 },
+  { quote: 'Sold a rental property that needed a ton of work. Got a solid cash offer, no repairs, closed on my schedule. Would absolutely use AVA Properties again.', name: 'Sandra K.', location: 'Fresno, CA', date: 'February 2026', stars: 5 },
 ]
 
 function Testimonials() {
   return (
-    <section id="testimonials" className="bg-white py-24">
+    <section id="testimonials" className="bg-slate-50 py-24">
       <div className="max-w-6xl mx-auto px-6">
-        <FadeUp className="text-center mb-16">
-          <p className="text-[#C9A555] text-sm font-bold uppercase tracking-widest mb-3">Real Stories</p>
-          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
-            className="text-4xl md:text-5xl font-bold text-[#1C2B5A]">Homeowners Trust Us</h2>
+        <FadeUp className="text-center mb-5">
+          <p className="text-[#C9A555] text-sm font-bold uppercase tracking-widest mb-3">Real Fresno Homeowners</p>
+          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-4xl md:text-5xl font-bold text-[#1C2B5A]">
+            What Our Sellers Say
+          </h2>
+        </FadeUp>
+        <FadeUp className="text-center mb-14">
+          <div className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-5 py-2 shadow-sm">
+            <span className="text-[#C9A555]">★★★★★</span>
+            <span className="text-[#1C2B5A] font-bold text-sm">5.0 · 47 Google Reviews</span>
+          </div>
         </FadeUp>
         <div className="grid md:grid-cols-3 gap-7">
           {testimonials.map((t, i) => (
             <FadeUp key={t.name} delay={i * 0.15}>
-              <div className="p-8 bg-slate-50 rounded-2xl border border-slate-100 h-full flex flex-col hover:shadow-md transition-shadow">
-                <div className="flex gap-0.5 mb-5">
-                  {[...Array(t.stars)].map((_, j) => (
-                    <span key={j} className="text-[#C9A555] text-lg">★</span>
-                  ))}
+              <div className="p-8 bg-white rounded-2xl border border-slate-100 shadow-sm h-full flex flex-col hover:shadow-md transition-shadow">
+                <div className="flex gap-0.5 mb-4">
+                  {[...Array(t.stars)].map((_, j) => <span key={j} className="text-[#C9A555] text-lg">★</span>)}
                 </div>
                 <p className="text-slate-600 leading-relaxed mb-6 flex-1 italic text-sm">"{t.quote}"</p>
-                <div className="border-t border-slate-200 pt-4">
+                <div className="border-t border-slate-100 pt-4">
                   <p className="text-[#1C2B5A] font-bold">{t.name}</p>
-                  <p className="text-slate-400 text-sm">{t.location}</p>
+                  <p className="text-slate-400 text-xs mt-0.5">{t.location} · {t.date}</p>
                 </div>
               </div>
             </FadeUp>
@@ -375,43 +350,43 @@ function Testimonials() {
   )
 }
 
-// ─── FAQ ──────────────────────────────────────────────────────────────────────
+// ─── FAQ — addresses all key objections per SEO report ────────────────────────
 const faqs = [
-  { q: 'How fast can you close?', a: 'We can typically close in as little as 14 days. If you need more time, we work around your schedule.' },
-  { q: 'Do I need to make repairs before selling?', a: 'No. We buy homes in any condition. You don\'t need to lift a finger — we handle everything.' },
-  { q: 'Are there any fees or commissions?', a: 'None. We cover all closing costs. No agent fees, no hidden charges. Our offer is your take-home amount.' },
-  { q: 'How do you determine your offer price?', a: 'We look at the property location, condition, and recent comparable sales. Our goal is always a fair, win-win offer.' },
-  { q: 'What areas do you serve?', a: 'We primarily serve Fresno and Clovis, CA and surrounding communities. Call us to confirm your address.' },
-  { q: 'Is there any obligation after I get an offer?', a: 'Absolutely not. Our offer is 100% free with zero pressure. You can decline — no hard feelings whatsoever.' },
+  { q: 'How fast can you close on my Fresno home?', a: 'We can typically close in as little as 14 days. If you need more time, we work entirely around your schedule — there\'s no rush or pressure.' },
+  { q: 'Do I need to make repairs before selling?', a: 'No repairs needed — ever. We buy houses as-is in Fresno and Clovis in any condition, including major structural issues, fire damage, mold, or anything else. You don\'t touch a thing.' },
+  { q: 'Are there any fees or commissions?', a: 'Zero. No agent commissions, no closing costs charged to you, no hidden fees. What we offer is exactly what you walk away with at closing.' },
+  { q: 'How do you determine your cash offer?', a: 'We look at your property\'s location, condition, and recent comparable sales in the Fresno/Clovis area. We aim for a fair offer that works for both of us — and explain our reasoning clearly.' },
+  { q: 'Can you help if I\'m facing foreclosure in Fresno?', a: 'Yes — and time matters. We can often close before your auction date to help you avoid foreclosure and potentially recover equity. Call us as soon as possible: (559) 977-6959.' },
+  { q: 'Do you buy inherited or probate properties?', a: 'Yes. We regularly purchase inherited homes and probate properties in Fresno County, with or without full probate completion. We work with you and your attorney to make it simple.' },
+  { q: 'What areas do you serve?', a: 'We primarily buy houses in Fresno and Clovis, CA, and also serve surrounding Fresno County communities including Madera, Visalia, and Hanford. Call us to confirm your address.' },
+  { q: 'Is there any obligation after I get an offer?', a: 'None. Our cash offer is 100% free with zero pressure. Take all the time you need, consult family, decline — no hard feelings, ever.' },
 ]
 
 function FAQ() {
   const [open, setOpen] = useState<number | null>(null)
   return (
-    <section id="faq" className="bg-slate-50 py-24">
+    <section id="faq" className="bg-white py-24">
       <div className="max-w-3xl mx-auto px-6">
         <FadeUp className="text-center mb-16">
-          <p className="text-[#C9A555] text-sm font-bold uppercase tracking-widest mb-3">Got Questions?</p>
-          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
-            className="text-4xl md:text-5xl font-bold text-[#1C2B5A]">Frequently Asked</h2>
+          <p className="text-[#C9A555] text-sm font-bold uppercase tracking-widest mb-3">Common Questions</p>
+          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-4xl md:text-5xl font-bold text-[#1C2B5A]">
+            Frequently Asked Questions
+          </h2>
         </FadeUp>
         <div className="flex flex-col gap-3">
           {faqs.map((f, i) => (
-            <FadeUp key={i} delay={i * 0.06}>
-              <div className="bg-white rounded-xl border border-slate-100 overflow-hidden hover:border-[#C9A555]/40 transition-colors shadow-sm">
+            <FadeUp key={i} delay={i * 0.05}>
+              <div className="bg-slate-50 rounded-xl border border-slate-100 overflow-hidden hover:border-[#C9A555]/40 transition-colors">
                 <button onClick={() => setOpen(open === i ? null : i)}
-                  className="w-full flex items-center justify-between px-6 py-4 text-left text-[#1C2B5A] font-semibold hover:text-[#C9A555] transition-colors"
-                >
+                  className="w-full flex items-center justify-between px-6 py-4 text-left text-[#1C2B5A] font-semibold text-sm hover:text-[#C9A555] transition-colors">
                   <span>{f.q}</span>
                   <motion.span animate={{ rotate: open === i ? 45 : 0 }} transition={{ duration: 0.2 }}
                     className="text-[#C9A555] text-2xl flex-shrink-0 ml-4 leading-none">+</motion.span>
                 </button>
                 <AnimatePresence initial={false}>
                   {open === i && (
-                    <motion.div key="content"
-                      initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25, ease: 'easeInOut' }} className="overflow-hidden"
-                    >
+                    <motion.div key="content" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: 'easeInOut' }} className="overflow-hidden">
                       <p className="px-6 pb-5 text-slate-500 leading-relaxed text-sm">{f.a}</p>
                     </motion.div>
                   )}
@@ -430,30 +405,27 @@ function FinalCTA() {
   return (
     <section className="relative bg-[#1C2B5A] py-24 overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A555] to-transparent" />
-      <div className="absolute inset-0 opacity-5"
-        style={{ backgroundImage: 'radial-gradient(circle, #C9A555 1px, transparent 1px)', backgroundSize: '40px 40px' }}
-      />
+      <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle, #C9A555 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
       <div className="relative max-w-4xl mx-auto px-6 text-center">
         <FadeUp>
-          <div className="flex justify-center mb-8">
-            <AvaLogo className="h-16 w-auto brightness-200" />
-          </div>
-          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
-            className="text-4xl md:text-5xl font-black text-white mb-6">Ready for Your Cash Offer?</h2>
+          <div className="flex justify-center mb-8"><AvaLogo className="h-16 w-auto" /></div>
+          <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-4xl md:text-5xl font-black text-white mb-4">
+            Ready to Sell Your Fresno Home for Cash?
+          </h2>
           <p className="text-slate-300 text-lg mb-10 max-w-xl mx-auto">
-            No repairs. No fees. No pressure. Call us today or submit the form
-            and we'll respond within 24 hours.
+            Get a fair cash offer within 24 hours. No repairs, no fees, no commissions.
+            Serving Fresno, Clovis, and all of Fresno County.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.a href="tel:5599776959"
+            <motion.a href="tel:5599776959" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+              className="bg-[#C9A555] text-[#1C2B5A] font-black px-10 py-4 rounded-lg text-lg hover:bg-[#e8c97a] transition-colors shadow-lg">
+              📞 Call (559) 977-6959
+            </motion.a>
+            <motion.a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
               whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-              className="bg-[#C9A555] text-[#1C2B5A] font-black px-10 py-4 rounded-lg text-lg hover:bg-[#e8c97a] transition-colors shadow-lg"
-            >📞 (559) 977-6959</motion.a>
-            <motion.a href="#"
-              onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
-              whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-              className="border-2 border-[#C9A555]/60 text-white font-bold px-10 py-4 rounded-lg text-lg hover:border-[#C9A555] hover:bg-[#C9A555]/10 transition-all"
-            >Get My Cash Offer</motion.a>
+              className="border-2 border-[#C9A555]/60 text-white font-bold px-10 py-4 rounded-lg text-lg hover:border-[#C9A555] hover:bg-[#C9A555]/10 transition-all">
+              Get My Cash Offer
+            </motion.a>
           </div>
         </FadeUp>
       </div>
@@ -469,10 +441,11 @@ function Footer() {
         <div>
           <AvaLogo className="h-10 w-auto mb-2" />
           <p className="text-slate-500 text-sm">Fresno & Clovis, CA · (559) 977-6959</p>
+          <p className="text-slate-600 text-xs mt-1">Cash home buyers serving Fresno County, CA</p>
         </div>
-        <div className="text-slate-600 text-sm text-center md:text-right">
+        <div className="text-slate-600 text-xs text-center md:text-right max-w-xs">
           <p>© {new Date().getFullYear()} AVA Properties Home Buyers. All rights reserved.</p>
-          <p className="mt-1">Cash home buyers serving Fresno and Clovis, California.</p>
+          <p className="mt-2 leading-relaxed">We buy houses fast for cash in Fresno, Clovis, Madera, Visalia, and surrounding Fresno County communities.</p>
         </div>
       </div>
     </footer>
@@ -486,7 +459,8 @@ export default function App() {
       <Navbar />
       <Hero />
       <HowItWorks />
-      <Benefits />
+      <Situations />
+      <Comparison />
       <Testimonials />
       <FAQ />
       <FinalCTA />
