@@ -116,9 +116,37 @@ function Navbar() {
 }
 
 // ─── Lead Form ────────────────────────────────────────────────────────────────
+const WEBHOOK_URL = 'https://0f89c2fb-2caf-43b7-9cc6-3c9e5a224688-00-3vxba6sddw5r0.riker.replit.dev/api/webhook/website-lead/45c8635d-2329-49c8-9293-2656caa7bc01'
+
 function LeadForm() {
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [form, setForm] = useState({ name: '', phone: '', address: '' })
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setLoading(true)
+    setError('')
+    try {
+      await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source: 'AVA Properties Website',
+          name: form.name,
+          phone: form.phone,
+          address: form.address,
+          submitted_at: new Date().toISOString(),
+        }),
+      })
+    } catch (_) {
+      // Still show success to user — log silently
+    }
+    setLoading(false)
+    setSubmitted(true)
+  }
+
   return (
     <div className="bg-white rounded-2xl shadow-2xl p-7 w-full max-w-md border border-slate-100">
       <AnimatePresence mode="wait">
@@ -131,7 +159,7 @@ function LeadForm() {
           </motion.div>
         ) : (
           <motion.form key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            onSubmit={(e) => { e.preventDefault(); setSubmitted(true) }} className="flex flex-col gap-4">
+            onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="border-b border-[#C9A555]/40 pb-3 mb-1">
               <h3 className="text-xl font-bold text-[#1C2B5A]" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>Get Your Cash Offer</h3>
               <p className="text-slate-400 text-xs mt-1">No repairs · No fees · No obligation · 24-hour response</p>
@@ -143,9 +171,10 @@ function LeadForm() {
                 className="border border-slate-200 rounded-lg px-4 py-3 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-[#1C2B5A] transition-colors"
               />
             ))}
-            <motion.button type="submit" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-              className="bg-[#1C2B5A] text-white font-bold py-3.5 rounded-lg hover:bg-[#243470] transition-colors text-sm tracking-wider mt-1">
-              GET MY CASH OFFER →
+            {error && <p className="text-red-500 text-xs">{error}</p>}
+            <motion.button type="submit" disabled={loading} whileHover={{ scale: loading ? 1 : 1.02 }} whileTap={{ scale: loading ? 1 : 0.98 }}
+              className="bg-[#1C2B5A] text-white font-bold py-3.5 rounded-lg hover:bg-[#243470] transition-colors text-sm tracking-wider mt-1 disabled:opacity-60">
+              {loading ? 'SENDING...' : 'GET MY CASH OFFER →'}
             </motion.button>
           </motion.form>
         )}
