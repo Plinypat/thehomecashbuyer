@@ -361,8 +361,8 @@ function Comparison() {
     { label: 'Closing Costs', cash: 'We cover them', agent: 'Paid by seller' },
     { label: 'Repairs Required', cash: 'None — sell as-is', agent: 'Usually expected' },
     { label: 'Open Houses', cash: 'None', agent: 'Multiple required' },
-    { label: 'Sale Falling Through', cash: 'Never — cash offer', agent: 'Common risk' },
-    { label: 'Offer Certainty', cash: '100% guaranteed', agent: 'Buyer financing risk' },
+    { label: 'Sale Falling Through', cash: 'Much less likely', agent: 'Common risk' },
+    { label: 'Offer Certainty', cash: 'No financing contingency', agent: 'Buyer financing risk' },
   ]
   return (
     <section className="bg-white py-16 md:py-24">
@@ -375,19 +375,23 @@ function Comparison() {
           <p className="text-slate-500 mt-4 max-w-xl mx-auto text-sm">Selling your Fresno or Clovis home through a traditional agent can take months and cost thousands. Here's how we compare.</p>
         </FadeUp>
         <FadeUp>
-          <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm overflow-x-auto">
-            <div className="grid grid-cols-3 bg-[#1C2B5A] text-white text-sm font-bold py-4 px-4 min-w-[500px]">
-              <span className="text-slate-300">Factor</span>
-              <span className="text-[#C9A555] text-center">AVA Properties</span>
-              <span className="text-center">Traditional Agent</span>
-            </div>
-            {rows.map((r, i) => (
-              <div key={r.label} className={`grid grid-cols-3 py-4 px-6 text-sm items-center ${i % 2 === 0 ? 'bg-slate-50' : 'bg-white'}`}>
-                <span className="text-slate-600 font-medium">{r.label}</span>
-                <span className="text-[#1C2B5A] font-bold text-center">{r.cash}</span>
-                <span className="text-slate-400 text-center">{r.agent}</span>
+          <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
+            <div className="overflow-x-auto">
+              <div style={{ minWidth: '520px' }}>
+                <div className="grid grid-cols-3 bg-[#1C2B5A] text-white text-sm font-bold py-4 px-4">
+                  <span className="text-slate-300">Factor</span>
+                  <span className="text-[#C9A555] text-center">AVA Properties</span>
+                  <span className="text-center">Traditional Agent</span>
+                </div>
+                {rows.map((r, i) => (
+                  <div key={r.label} className={`grid grid-cols-3 py-4 px-6 text-sm items-center ${i % 2 === 0 ? 'bg-slate-50' : 'bg-white'}`}>
+                    <span className="text-slate-600 font-medium">{r.label}</span>
+                    <span className="text-[#1C2B5A] font-bold text-center">{r.cash}</span>
+                    <span className="text-slate-400 text-center">{r.agent}</span>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </FadeUp>
       </div>
