@@ -117,6 +117,7 @@ function Navbar() {
 
 // ─── Lead Form ────────────────────────────────────────────────────────────────
 const WEBHOOK_URL = 'https://0f89c2fb-2caf-43b7-9cc6-3c9e5a224688-00-3vxba6sddw5r0.riker.replit.dev/api/webhook/website-lead/45c8635d-2329-49c8-9293-2656caa7bc01'
+const WEB3FORMS_KEY = 'd9a02a22-6ec0-4ed3-a163-318967180ad5'
 
 function LeadForm() {
   const [submitted, setSubmitted] = useState(false)
@@ -128,20 +129,40 @@ function LeadForm() {
     e.preventDefault()
     setLoading(true)
     setError('')
+    const payload = {
+      source: 'AVA Properties Website',
+      name: form.name,
+      phone: form.phone,
+      address: form.address,
+      submitted_at: new Date().toISOString(),
+    }
     try {
-      await fetch(WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          source: 'AVA Properties Website',
-          name: form.name,
-          phone: form.phone,
-          address: form.address,
-          submitted_at: new Date().toISOString(),
+      await Promise.all([
+        // Pipeline webhook
+        fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
         }),
-      })
+        // Email to Patrick + Alex
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: '🏡 New Lead — AVA Properties Home Buyers',
+            from_name: 'AVA Properties Website',
+            cc: 'alexpre1616@gmail.com',
+            name: form.name,
+            phone: form.phone,
+            address: form.address,
+            source: 'AVA Properties Website',
+            submitted_at: new Date().toISOString(),
+          }),
+        }),
+      ])
     } catch (_) {
-      // Still show success to user — log silently
+      // Show success regardless — never block the user
     }
     setLoading(false)
     setSubmitted(true)
