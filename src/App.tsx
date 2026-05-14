@@ -1,50 +1,6 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion'
 
-// ─── AVA Logo SVG ─────────────────────────────────────────────────────────────
-// light=true → white strokes (for dark navy backgrounds)
-// light=false (default) → navy strokes (for white/light backgrounds)
-function AvaLogo({ className = '', light = false }: { className?: string; light?: boolean }) {
-  const primary = light ? "#FFFFFF" : "#1C2B5A"
-  const gold = "#C9A555"
-  const sw = 8
-  return (
-    <svg viewBox="0 0 480 310" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="AVA Properties Home Buyers">
-      {/* ── LEFT A ── */}
-      <line x1="8"   y1="210" x2="130" y2="12"  stroke={primary} strokeWidth={sw} strokeLinecap="square"/>
-      <line x1="82"  y1="12"  x2="130" y2="12"  stroke={primary} strokeWidth={sw} strokeLinecap="square"/>
-      <line x1="130" y1="12"  x2="192" y2="210" stroke={primary} strokeWidth={sw} strokeLinecap="square"/>
-      <line x1="48"  y1="148" x2="169" y2="148" stroke={primary} strokeWidth={sw} strokeLinecap="square"/>
-      {/* ── V (always gold) ── */}
-      <line x1="130" y1="12"  x2="240" y2="176" stroke={gold} strokeWidth={sw} strokeLinecap="square"/>
-      <line x1="240" y1="176" x2="350" y2="12"  stroke={gold} strokeWidth={sw} strokeLinecap="square"/>
-      {/* ── RIGHT A ── */}
-      <line x1="350" y1="12"  x2="288" y2="210" stroke={primary} strokeWidth={sw} strokeLinecap="square"/>
-      <line x1="350" y1="12"  x2="398" y2="12"  stroke={primary} strokeWidth={sw} strokeLinecap="square"/>
-      <line x1="350" y1="12"  x2="472" y2="210" stroke={primary} strokeWidth={sw} strokeLinecap="square"/>
-      <line x1="311" y1="148" x2="432" y2="148" stroke={primary} strokeWidth={sw} strokeLinecap="square"/>
-      {/* ── LEFT WINDOW ── gold squares */}
-      <rect x="90"  y="160" width="14" height="14" fill={gold}/>
-      <rect x="108" y="160" width="14" height="14" fill={gold}/>
-      <rect x="90"  y="178" width="14" height="14" fill={gold}/>
-      <rect x="108" y="178" width="14" height="14" fill={gold}/>
-      {/* ── RIGHT WINDOW ── gold squares */}
-      <rect x="358" y="160" width="14" height="14" fill={gold}/>
-      <rect x="376" y="160" width="14" height="14" fill={gold}/>
-      <rect x="358" y="178" width="14" height="14" fill={gold}/>
-      <rect x="376" y="178" width="14" height="14" fill={gold}/>
-      {/* ── AVA PROPERTIES text ── */}
-      <text fontFamily="Cormorant Garamond, Georgia, serif" fontSize="38" fontWeight="700" letterSpacing="4">
-        <tspan x="52" y="256" fill={primary}>AVA</tspan>
-        <tspan fill={gold}> PROPERTIES</tspan>
-      </text>
-      {/* ── HOME BUYERS row ── */}
-      <line x1="52"  y1="270" x2="148" y2="270" stroke={gold} strokeWidth="1.2"/>
-      <text x="156" y="274" fontFamily="Cormorant Garamond, Georgia, serif" fontSize="20" fontWeight="600" letterSpacing="6" fill={primary}>HOME BUYERS</text>
-      <line x1="388" y1="270" x2="430" y2="270" stroke={gold} strokeWidth="1.2"/>
-    </svg>
-  )
-}
 
 // ─── FadeUp ───────────────────────────────────────────────────────────────────
 function FadeUp({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) {
