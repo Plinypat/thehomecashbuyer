@@ -223,10 +223,6 @@ function Hero() {
             <span className="text-[#C9A555] text-xs font-semibold">★★★★★ 47 Reviews</span>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.05 }} className="mb-5">
-            <AvaLogo className="h-14 w-auto" light={true} />
-          </motion.div>
-
           {/* H1 — keyword-optimized */}
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.15 }}
             style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
