@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion'
 
 // ─── AVA Logo SVG ─────────────────────────────────────────────────────────────
@@ -59,25 +59,14 @@ function FadeUp({ children, delay = 0, className = '' }: { children: React.React
   )
 }
 
-// ─── NavLogo: real logo when scrolled (white bg), SVG when at top (dark hero) ─
+// ─── NavLogo: always show real logo ──────────────────────────────────────────
 function NavLogo() {
-  const { scrollY } = useScroll()
-  const [isLight, setIsLight] = useState(true)
-  useEffect(() => {
-    return scrollY.on('change', (v) => setIsLight(v < 60))
-  }, [scrollY])
-  if (!isLight) {
-    return <img src="/ava-logo.svg" alt="AVA Properties Home Buyers" className="h-14 w-auto" />
-  }
-  return <AvaLogo className="h-10 w-auto" light={true} />
+  return <img src="/ava-logo.svg" alt="AVA Properties Home Buyers" className="h-14 w-auto" />
 }
 
 // ─── Navbar ───────────────────────────────────────────────────────────────────
 function Navbar() {
   const [open, setOpen] = useState(false)
-  const { scrollY } = useScroll()
-  const bg = useTransform(scrollY, [0, 80], ['rgba(255,255,255,0)', 'rgba(255,255,255,0.97)'])
-  const shadow = useTransform(scrollY, [0, 80], ['none', '0 2px 20px rgba(0,0,0,0.10)'])
   const links = [
     { label: 'How It Works', href: '#how-it-works' },
     { label: 'Situations', href: '#situations' },
@@ -85,7 +74,7 @@ function Navbar() {
     { label: 'FAQ', href: '#faq' },
   ]
   return (
-    <motion.header style={{ backgroundColor: bg, boxShadow: shadow }} className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <a href="#">
           {/* Light logo when over dark hero, navy logo when navbar goes white */}
@@ -116,7 +105,7 @@ function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   )
 }
 
