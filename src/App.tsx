@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion'
 
 // ─── AVA Logo SVG ─────────────────────────────────────────────────────────────
@@ -59,12 +59,17 @@ function FadeUp({ children, delay = 0, className = '' }: { children: React.React
   )
 }
 
-// ─── NavLogo: switches between light/dark based on scroll ────────────────────
+// ─── NavLogo: real logo when scrolled (white bg), SVG when at top (dark hero) ─
 function NavLogo() {
   const { scrollY } = useScroll()
   const [isLight, setIsLight] = useState(true)
-  scrollY.on('change', (v) => setIsLight(v < 60))
-  return <AvaLogo className="h-10 w-auto" light={isLight} />
+  useEffect(() => {
+    return scrollY.on('change', (v) => setIsLight(v < 60))
+  }, [scrollY])
+  if (!isLight) {
+    return <img src="/ava-logo.svg" alt="AVA Properties Home Buyers" className="h-14 w-auto" />
+  }
+  return <AvaLogo className="h-10 w-auto" light={true} />
 }
 
 // ─── Navbar ───────────────────────────────────────────────────────────────────
