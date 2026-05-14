@@ -157,7 +157,7 @@ function LeadForm() {
             access_key: WEB3FORMS_KEY,
             subject: '🏡 New Lead — AVA Properties Home Buyers',
             from_name: 'AVA Properties Website',
-            cc: 'alexpre1616@gmail.com',
+            cc: 'info@avahomebuyer.com',
             name: form.name,
             phone: form.phone,
             address: form.address,
@@ -539,6 +539,7 @@ function Footer() {
         <div>
           <AvaLogo className="h-10 w-auto mb-2" light={true} />
           <p className="text-slate-500 text-sm">Fresno & Clovis, CA · (559) 977-6959</p>
+          <a href="mailto:info@avahomebuyer.com" className="text-[#C9A555] text-sm hover:text-[#e8c97a] transition-colors">info@avahomebuyer.com</a>
           <p className="text-slate-600 text-xs mt-1">Cash home buyers serving Fresno County, CA</p>
         </div>
         <div className="text-slate-600 text-xs text-center md:text-right max-w-xs">
