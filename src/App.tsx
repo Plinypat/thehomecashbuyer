@@ -491,7 +491,6 @@ function FinalCTA() {
       <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle, #C9A555 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
       <div className="relative max-w-4xl mx-auto px-6 text-center">
         <FadeUp>
-          <div className="flex justify-center mb-8"><AvaLogo className="h-16 w-auto" light={true} /></div>
           <h2 style={{ fontFamily: 'Playfair Display, Georgia, serif' }} className="text-3xl md:text-5xl font-black text-white mb-4">
             Ready to Sell Your Fresno Home for Cash?
           </h2>
@@ -522,7 +521,6 @@ function Footer() {
     <footer className="bg-[#0e1a3a] border-t border-white/10 py-12">
       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
-          <AvaLogo className="h-10 w-auto mb-2" light={true} />
           <p className="text-slate-500 text-sm">Fresno & Clovis, CA · (559) 977-6959</p>
           <a href="mailto:info@avahomebuyer.com" className="text-[#C9A555] text-sm hover:text-[#e8c97a] transition-colors">info@avahomebuyer.com</a>
           <p className="text-slate-600 text-xs mt-1">Cash home buyers serving Fresno County, CA</p>
