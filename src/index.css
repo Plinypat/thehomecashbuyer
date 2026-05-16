@@ -20,8 +20,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:#fff;border-botto
 .nr{display:flex;align-items:center;gap:32px}
 .nr a{font-size:13px;font-weight:500;color:#666;text-decoration:none;transition:color .2s}
 .nr a:hover{color:#0A0A0A}
-.ncta{background:#0A0A0A!important;color:#fff!important;padding:10px 22px;border-radius:6px;font-weight:600!important;transition:background .2s,transform .15s}
+.ncta{background:#0A0A0A!important;color:#fff!important;padding:10px 22px;border-radius:6px;font-weight:600!important;transition:background .2s,transform .15s;white-space:nowrap}
 .ncta:hover{background:#C9A555!important;color:#0A0A0A!important}
+@media(max-width:640px){.nr a:not(.ncta){display:none}.ncta{font-size:12px;padding:9px 14px}}
 
 .hero{background:#0A0A0A;min-height:100vh;padding:140px 52px 100px;display:grid;grid-template-columns:1fr 420px;gap:80px;align-items:center;position:relative;overflow:hidden}
 @media(max-width:900px){.hero{grid-template-columns:1fr;padding:120px 20px 60px;gap:48px}}
