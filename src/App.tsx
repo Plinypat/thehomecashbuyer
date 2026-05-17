@@ -196,7 +196,7 @@ export default function App() {
             <span className="badge">Close in 14 Days</span>
             <span className="badge">Any Condition</span>
           </div>
-          <a href="tel:5599776959" className="hphone">📞 (559) 977-6959</a>
+          <MagBtn href="tel:5599776959" className="hphone">📞 (559) 977-6959</MagBtn>
         </div>
         <div className="hform">
           <div className="ft">Get Your Cash Offer</div>
