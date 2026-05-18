@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import './index.css'
 
-const FORMSPREE = 'https://formspree.io/f/placeholder' // Patrick: swap with Alex's Formspree endpoint
+const FORMSPREE = 'https://formspree.io/f/xbdblrvw' // Patrick: swap with Alex's Formspree endpoint
 
 // ─── Custom Cursor ────────────────────────────────────────────────────────────
 function Cursor() {
